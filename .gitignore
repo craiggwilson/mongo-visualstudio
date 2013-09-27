@@ -1,0 +1,17 @@
+bin
+obj
+packages
+*.user
+*.suo
+*.vsp
+*.csproj.VisualState.xml
+*.vbproj.VisualState.xml
+*.cache
+*.orig
+
+# Vim artifacts
+*.swp
+*~
+
+# Nupkg artifacts
+*.nupkg
