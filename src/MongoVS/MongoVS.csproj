@@ -131,12 +131,11 @@
   <ItemGroup>
     <Compile Include="Explorer\ViewModels\CollectionsViewModel.cs" />
     <Compile Include="Explorer\ViewModels\DatabasesViewModel.cs" />
-    <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Explorer\ViewModels\NodeViewModelWithChildren.cs" />
-    <Compile Include="Controls\AddConnectionDialog.xaml.cs">
+    <Compile Include="ConnectionManager\AddConnectionDialog.xaml.cs">
       <DependentUpon>AddConnectionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddConnectionViewModel.cs" />
+    <Compile Include="ConnectionManager\ViewModels\AddConnectionViewModel.cs" />
     <Compile Include="Explorer\Tree.xaml.cs">
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
@@ -198,7 +197,7 @@
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\AddConnectionDialog.xaml">
+    <Page Include="ConnectionManager\AddConnectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.VisualStudio.PlatformUI;
-using MongoDB.VisualStudio.Models;
+using MongoDB.VisualStudio.ConnectionManager.ViewModels;
 
-namespace MongoDB.VisualStudio.Controls
+namespace MongoDB.VisualStudio.ConnectionManager
 {
     public partial class AddConnectionDialog : DialogWindow
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.ConnectionManager.ViewModels
 {
     public class AddConnectionViewModel
     {

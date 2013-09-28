@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 using System.ComponentModel.Design;
-using MongoDB.VisualStudio.Models;
 using MongoDB.Driver;
 using MongoDB.VisualStudio.Explorer.ViewModels;
-using MongoDB.VisualStudio.Controls;
+using MongoDB.VisualStudio.ConnectionManager.ViewModels;
+using MongoDB.VisualStudio.ConnectionManager;
 
 namespace MongoDB.VisualStudio.Explorer
 {
