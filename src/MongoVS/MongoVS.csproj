@@ -130,7 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CollectionsViewModel.cs" />
+    <Compile Include="Models\ContextMenuItemViewModel.cs" />
     <Compile Include="Models\DatabasesViewModel.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\TreeItemViewModelWithChildren.cs" />
     <Compile Include="Presenters\CollectionsPresenter.cs" />
     <Compile Include="Presenters\DatabasesPresenter.cs" />

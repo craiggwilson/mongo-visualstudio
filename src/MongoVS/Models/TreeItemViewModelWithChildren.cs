@@ -22,7 +22,14 @@ namespace MongoDB.VisualStudio.Models
             {
                 if (_children != value)
                 {
-                    _children = new ObservableCollection<ITreeItemViewModel>(value);
+                    if (value == null)
+                    {
+                        _children = null;
+                    }
+                    else
+                    {
+                        _children = new ObservableCollection<ITreeItemViewModel>(value);
+                    }
                     OnPropertyChanged("Children");
                 }
             }
@@ -49,6 +56,12 @@ namespace MongoDB.VisualStudio.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected abstract IEnumerable<ITreeItemViewModel> LoadChildren();
+
+        protected void Refresh()
+        {
+            Children = null;
+            IsExpanded = true;
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {
