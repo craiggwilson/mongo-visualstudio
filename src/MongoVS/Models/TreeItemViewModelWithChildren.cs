@@ -39,7 +39,7 @@ namespace MongoDB.VisualStudio.Models
                     OnPropertyChanged("IsExpanded");
                 }
 
-                if (_isExpanded)
+                if (_isExpanded && _children == null)
                 {
                     Children = LoadChildren();
                 }
