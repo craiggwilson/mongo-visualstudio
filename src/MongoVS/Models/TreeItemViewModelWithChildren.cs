@@ -5,17 +5,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace MongoDB.VisualStudio.Models
 {
-    public abstract class TreeItemViewModelWithChildren : ITreeItemViewModel, INotifyPropertyChanged
+    public abstract class TreeItemViewModelWithChildren : TreeItemViewModel
     {
-        private ObservableCollection<ITreeItemViewModel> _children;
+        private ObservableCollection<TreeItemViewModel> _children;
         private bool _isExpanded;
 
-        public abstract string Name { get; }
-
-        public IEnumerable<ITreeItemViewModel> Children
+        public IEnumerable<TreeItemViewModel> Children
         {
             get { return _children; }
             set
@@ -28,12 +27,14 @@ namespace MongoDB.VisualStudio.Models
                     }
                     else
                     {
-                        _children = new ObservableCollection<ITreeItemViewModel>(value);
+                        _children = new ObservableCollection<TreeItemViewModel>(value);
                     }
                     OnPropertyChanged("Children");
                 }
             }
         }
+
+        public abstract ImageSource ExpandedImage { get; }
 
         public bool IsExpanded
         {
@@ -53,22 +54,12 @@ namespace MongoDB.VisualStudio.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected abstract IEnumerable<TreeItemViewModel> LoadChildren();
 
-        protected abstract IEnumerable<ITreeItemViewModel> LoadChildren();
-
-        protected void Refresh()
+        protected void ReloadChildren()
         {
             Children = null;
             IsExpanded = true;
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

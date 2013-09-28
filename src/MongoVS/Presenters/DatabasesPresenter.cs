@@ -18,7 +18,7 @@ namespace MongoDB.VisualStudio.Presenters
 
         public MongoServer Client { get; private set; }
 
-        public IEnumerable<ITreeItemViewModel> GetChildren()
+        public IEnumerable<TreeItemViewModel> GetChildren()
         {
             foreach (var dbName in Client.GetDatabaseNames())
             {

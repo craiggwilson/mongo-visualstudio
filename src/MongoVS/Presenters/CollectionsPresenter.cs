@@ -17,11 +17,11 @@ namespace MongoDB.VisualStudio.Presenters
 
         public MongoDatabase Database { get; private set; }
 
-        public IEnumerable<ITreeItemViewModel> GetChildren()
+        public IEnumerable<TreeItemViewModel> GetChildren()
         {
             foreach (var collectionName in Database.GetCollectionNames())
             {
-                yield return new CollectionViewModel { Name = collectionName };
+                yield return new CollectionViewModel(Database.GetCollection(collectionName));
             }
         }
     }

@@ -17,7 +17,7 @@ namespace MongoDB.VisualStudio.Presenters
 
         public MongoDatabase Database { get; private set; }
 
-        public IEnumerable<ITreeItemViewModel> GetChildren()
+        public IEnumerable<TreeItemViewModel> GetChildren()
         {
             yield return new CollectionsViewModel(new CollectionsPresenter(Database));
         }

@@ -130,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CollectionsViewModel.cs" />
-    <Compile Include="Models\ContextMenuItemViewModel.cs" />
     <Compile Include="Models\DatabasesViewModel.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\TreeItemViewModelWithChildren.cs" />
@@ -148,7 +147,7 @@
     <Compile Include="Models\TreeViewModel.cs" />
     <Compile Include="Models\CollectionViewModel.cs" />
     <Compile Include="Models\DatabaseViewModel.cs" />
-    <Compile Include="Models\ITreeItemViewModel.cs" />
+    <Compile Include="Models\TreeItemViewModel.cs" />
     <Compile Include="Models\ServerViewModel.cs" />
     <Compile Include="ExplorerWindow.cs" />
     <Compile Include="GuidList.cs" />

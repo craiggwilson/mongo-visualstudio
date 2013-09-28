@@ -13,9 +13,9 @@ namespace MongoDB.VisualStudio.Models
     {
         public TreeViewModel()
         {
-            Children = new ObservableCollection<ITreeItemViewModel>();
+            Children = new ObservableCollection<TreeItemViewModel>();
         }
 
-        public ObservableCollection<ITreeItemViewModel> Children { get; private set; }
+        public ObservableCollection<TreeItemViewModel> Children { get; private set; }
     }
 }

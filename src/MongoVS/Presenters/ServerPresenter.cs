@@ -21,7 +21,7 @@ namespace MongoDB.VisualStudio.Presenters
 
         public MongoServer Client { get; private set; }
 
-        public IEnumerable<ITreeItemViewModel> GetChildren()
+        public IEnumerable<TreeItemViewModel> GetChildren()
         {
             yield return new DatabasesViewModel(new DatabasesPresenter(Client));
         }
