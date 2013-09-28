@@ -136,8 +136,8 @@
       <DependentUpon>AddConnectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConnectionManager\ViewModels\AddConnectionViewModel.cs" />
-    <Compile Include="Explorer\Tree.xaml.cs">
-      <DependentUpon>Tree.xaml</DependentUpon>
+    <Compile Include="Explorer\ExplorerTree.xaml.cs">
+      <DependentUpon>ExplorerTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="Explorer\ViewModels\ExplorerTreeViewModel.cs" />
     <Compile Include="Explorer\ViewModels\CollectionViewModel.cs" />
@@ -201,7 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Explorer\Tree.xaml">
+    <Page Include="Explorer\ExplorerTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
