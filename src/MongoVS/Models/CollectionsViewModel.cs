@@ -5,23 +5,22 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using MongoDB.VisualStudio.Presenters;
 
 namespace MongoDB.VisualStudio.Models
 {
-    public class ServerViewModel : TreeItemViewModelWithChildren
+    public class CollectionsViewModel : TreeItemViewModelWithChildren
     {
-        private readonly ServerPresenter _presenter;
+        private readonly CollectionsPresenter _presenter;
 
-        public ServerViewModel(ServerPresenter presenter)
+        public CollectionsViewModel(CollectionsPresenter presenter)
         {
             _presenter = presenter;
         }
 
         public override string Name
         {
-            get { return _presenter.Address; }
+            get { return "Collections"; }
         }
 
         protected override IEnumerable<ITreeItemViewModel> LoadChildren()

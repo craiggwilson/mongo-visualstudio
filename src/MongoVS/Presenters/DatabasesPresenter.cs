@@ -9,21 +9,23 @@ using MongoDB.VisualStudio.Models;
 
 namespace MongoDB.VisualStudio.Presenters
 {
-    public class ServerPresenter
+    public class DatabasesPresenter
     {
-        public ServerPresenter(string address)
+        public DatabasesPresenter(MongoServer client)
         {
-            Address = address;
-            Client = new MongoClient("mongodb://" + address).GetServer();
+            Client = client;
         }
-
-        public string Address { get; private set; }
 
         public MongoServer Client { get; private set; }
 
         public IEnumerable<ITreeItemViewModel> GetChildren()
         {
-            yield return new DatabasesViewModel(new DatabasesPresenter(Client));
+            foreach (var dbName in Client.GetDatabaseNames())
+            {
+                var database = Client.GetDatabase(dbName);
+                var presenter = new DatabasePresenter(database);
+                yield return new DatabaseViewModel(presenter);
+            }
         }
     }
 }

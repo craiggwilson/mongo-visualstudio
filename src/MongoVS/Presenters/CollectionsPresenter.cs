@@ -8,9 +8,9 @@ using MongoDB.VisualStudio.Models;
 
 namespace MongoDB.VisualStudio.Presenters
 {
-    public class DatabasePresenter
+    public class CollectionsPresenter
     {
-        public DatabasePresenter(MongoDatabase database)
+        public CollectionsPresenter(MongoDatabase database)
         {
             Database = database;
         }
@@ -19,7 +19,10 @@ namespace MongoDB.VisualStudio.Presenters
 
         public IEnumerable<ITreeItemViewModel> GetChildren()
         {
-            yield return new CollectionsViewModel(new CollectionsPresenter(Database));
+            foreach (var collectionName in Database.GetCollectionNames())
+            {
+                yield return new CollectionViewModel { Name = collectionName };
+            }
         }
     }
 }

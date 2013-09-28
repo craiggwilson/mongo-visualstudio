@@ -129,6 +129,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CollectionsViewModel.cs" />
+    <Compile Include="Models\DatabasesViewModel.cs" />
+    <Compile Include="Models\TreeItemViewModelWithChildren.cs" />
+    <Compile Include="Presenters\CollectionsPresenter.cs" />
+    <Compile Include="Presenters\DatabasesPresenter.cs" />
     <Compile Include="Presenters\DatabasePresenter.cs" />
     <Compile Include="Presenters\ServerPresenter.cs" />
     <Compile Include="Controls\AddConnectionDialog.xaml.cs">
@@ -184,6 +189,15 @@
     <None Include="Resources\Images.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\Cluster.png" />
+    <Resource Include="Resources\Images\Collection.png" />
+    <Resource Include="Resources\Images\Database.png" />
+    <Resource Include="Resources\Images\Document.png" />
+    <Resource Include="Resources\Images\FolderClosed.png" />
+    <Resource Include="Resources\Images\FolderOpen.png" />
+    <Resource Include="Resources\Images\Index.png" />
+    <Resource Include="Resources\Images\Server.png" />
+    <Resource Include="Resources\Images\ViewDocument.png" />
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +210,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.VisualStudio.Models
 {
-    public class CollectionViewModel
+    public class CollectionViewModel : ITreeItemViewModel
     {
         public string Name { get; set; }
     }
