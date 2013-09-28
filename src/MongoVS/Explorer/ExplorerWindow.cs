@@ -7,13 +7,13 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
-using MongoDB.VisualStudio.Controls;
 using System.ComponentModel.Design;
 using MongoDB.VisualStudio.Models;
 using MongoDB.Driver;
-using MongoDB.VisualStudio.Presenters;
+using MongoDB.VisualStudio.Explorer.ViewModels;
+using MongoDB.VisualStudio.Controls;
 
-namespace MongoDB.VisualStudio
+namespace MongoDB.VisualStudio.Explorer
 {
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
@@ -27,7 +27,7 @@ namespace MongoDB.VisualStudio
     [Guid("6afb9412-b6bc-4da8-b17b-29b1109062b5")]
     public class ExplorerWindow : ToolWindowPane
     {
-        private TreeViewModel _clusterTreeViewModel;
+        private ExplorerTreeViewModel _clusterTreeViewModel;
 
         /// <summary>
         /// Standard constructor for the tool window.
@@ -48,8 +48,8 @@ namespace MongoDB.VisualStudio
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
-            _clusterTreeViewModel = new TreeViewModel();
-            base.Content = new Tree(_clusterTreeViewModel);
+            _clusterTreeViewModel = new ExplorerTreeViewModel();
+            base.Content = new ExplorerTree(_clusterTreeViewModel);
             this.ToolBar = new CommandID(GuidList.guidMongoVSCmdSet, (int)PkgCmdIDList.tbExplorer);
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
@@ -69,8 +69,7 @@ namespace MongoDB.VisualStudio
             var result = dialog.ShowDialog();
             if (result.HasValue && result.Value)
             {
-                var serverPresenter = new ServerPresenter(model.ServerAddress);
-                var serverModel = new ServerViewModel(serverPresenter);
+                var serverModel = new ServerViewModel(model.ServerAddress);
                 _clusterTreeViewModel.Children.Add(serverModel);
             }
         }

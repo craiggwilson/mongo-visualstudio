@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using System.Windows;
+using MongoDB.VisualStudio.Explorer;
 
 namespace MongoDB.VisualStudio
 {

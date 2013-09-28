@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using MongoDB.VisualStudio.Presenters;
+using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public class DatabasesViewModel : TreeItemViewModelWithChildren
+    public class DatabasesViewModel : NodeViewModelWithChildren
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderClosed.png"));
         private static readonly ImageSource _expandedImage = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderOpen.png"));
 
-        private readonly DatabasesPresenter _presenter;
+        private readonly MongoClient _client;
 
-        public DatabasesViewModel(DatabasesPresenter presenter)
+        public DatabasesViewModel(MongoClient client)
         {
-            _presenter = presenter;
+            _client = client;
         }
 
         public override ImageSource ExpandedImage
@@ -39,9 +39,14 @@ namespace MongoDB.VisualStudio.Models
             get { return "Databases"; }
         }
 
-        protected override IEnumerable<TreeItemViewModel> LoadChildren()
+        protected override IEnumerable<NodeViewModel> LoadChildren()
         {
-            return _presenter.GetChildren();
+            var server = _client.GetServer();
+            foreach (var dbName in server.GetDatabaseNames())
+            {
+                var database = server.GetDatabase(dbName);
+                yield return new DatabaseViewModel(database);
+            }
         }
     }
 }

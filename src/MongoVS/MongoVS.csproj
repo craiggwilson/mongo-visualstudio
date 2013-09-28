@@ -129,27 +129,23 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CollectionsViewModel.cs" />
-    <Compile Include="Models\DatabasesViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\CollectionsViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\DatabasesViewModel.cs" />
     <Compile Include="Models\RelayCommand.cs" />
-    <Compile Include="Models\TreeItemViewModelWithChildren.cs" />
-    <Compile Include="Presenters\CollectionsPresenter.cs" />
-    <Compile Include="Presenters\DatabasesPresenter.cs" />
-    <Compile Include="Presenters\DatabasePresenter.cs" />
-    <Compile Include="Presenters\ServerPresenter.cs" />
+    <Compile Include="Explorer\ViewModels\NodeViewModelWithChildren.cs" />
     <Compile Include="Controls\AddConnectionDialog.xaml.cs">
       <DependentUpon>AddConnectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AddConnectionViewModel.cs" />
-    <Compile Include="Controls\Tree.xaml.cs">
+    <Compile Include="Explorer\Tree.xaml.cs">
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\TreeViewModel.cs" />
-    <Compile Include="Models\CollectionViewModel.cs" />
-    <Compile Include="Models\DatabaseViewModel.cs" />
-    <Compile Include="Models\TreeItemViewModel.cs" />
-    <Compile Include="Models\ServerViewModel.cs" />
-    <Compile Include="ExplorerWindow.cs" />
+    <Compile Include="Explorer\ViewModels\ExplorerTreeViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\CollectionViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\DatabaseViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\NodeViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\ServerViewModel.cs" />
+    <Compile Include="Explorer\ExplorerWindow.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -206,7 +202,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Tree.xaml">
+    <Page Include="Explorer\Tree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

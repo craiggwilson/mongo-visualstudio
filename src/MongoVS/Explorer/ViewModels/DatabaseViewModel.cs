@@ -7,19 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using MongoDB.VisualStudio.Presenters;
+using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public class DatabaseViewModel : TreeItemViewModelWithChildren
+    public class DatabaseViewModel : NodeViewModelWithChildren
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Database.png"));
 
-        private readonly DatabasePresenter _presenter;
+        private readonly MongoDatabase _database;
 
-        public DatabaseViewModel(DatabasePresenter presenter)
+        public DatabaseViewModel(MongoDatabase database)
         {
-            _presenter = presenter;
+            _database = database;
         }
 
         public override ImageSource ExpandedImage
@@ -34,12 +34,12 @@ namespace MongoDB.VisualStudio.Models
 
         public override string Name
         {
-            get { return _presenter.Database.Name; }
+            get { return _database.Name; }
         }
 
-        protected override IEnumerable<TreeItemViewModel> LoadChildren()
+        protected override IEnumerable<NodeViewModel> LoadChildren()
         {
-            return _presenter.GetChildren();
+            yield return new CollectionsViewModel(_database);
         }
     }
 }

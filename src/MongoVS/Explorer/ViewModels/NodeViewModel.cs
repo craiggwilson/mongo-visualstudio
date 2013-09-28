@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public abstract class TreeItemViewModel : INotifyPropertyChanged
+    public abstract class NodeViewModel : INotifyPropertyChanged
     {
         public abstract ImageSource Image { get; }
 

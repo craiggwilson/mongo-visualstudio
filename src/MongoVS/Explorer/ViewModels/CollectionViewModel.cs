@@ -7,9 +7,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public class CollectionViewModel : TreeItemViewModel
+    public class CollectionViewModel : NodeViewModel
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Collection.png"));
 

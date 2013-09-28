@@ -11,13 +11,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MongoDB.VisualStudio.Models;
+using MongoDB.VisualStudio.Explorer.ViewModels;
 
-namespace MongoDB.VisualStudio.Controls
+namespace MongoDB.VisualStudio.Explorer
 {
-    public partial class Tree : UserControl
+    public partial class ExplorerTree : UserControl
     {
-        public Tree(TreeViewModel viewModel)
+        public ExplorerTree(ExplorerTreeViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

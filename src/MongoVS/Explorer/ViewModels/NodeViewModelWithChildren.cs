@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace MongoDB.VisualStudio.Models
+namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public abstract class TreeItemViewModelWithChildren : TreeItemViewModel
+    public abstract class NodeViewModelWithChildren : NodeViewModel
     {
-        private ObservableCollection<TreeItemViewModel> _children;
+        private ObservableCollection<NodeViewModel> _children;
         private bool _isExpanded;
 
-        public IEnumerable<TreeItemViewModel> Children
+        public IEnumerable<NodeViewModel> Children
         {
             get { return _children; }
             set
@@ -27,7 +27,7 @@ namespace MongoDB.VisualStudio.Models
                     }
                     else
                     {
-                        _children = new ObservableCollection<TreeItemViewModel>(value);
+                        _children = new ObservableCollection<NodeViewModel>(value);
                     }
                     OnPropertyChanged("Children");
                 }
@@ -54,7 +54,7 @@ namespace MongoDB.VisualStudio.Models
             }
         }
 
-        protected abstract IEnumerable<TreeItemViewModel> LoadChildren();
+        protected abstract IEnumerable<NodeViewModel> LoadChildren();
 
         protected void ReloadChildren()
         {
