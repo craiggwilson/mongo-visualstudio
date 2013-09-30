@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.VisualStudio.PlatformUI;
 using MongoDB.VisualStudio.Explorer.ViewModels;
 
 namespace MongoDB.VisualStudio.Explorer

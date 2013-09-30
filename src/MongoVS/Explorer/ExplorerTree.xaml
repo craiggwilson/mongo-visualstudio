@@ -9,6 +9,9 @@
              Foreground="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowTextBrushKey}}">
     <UserControl.Resources>
         <explorer:ThicknessIndentationValueConverter x:Key="ThicknessIndenter" />
+        <vsshell:BrushToColorConverter x:Key="BrushToColorConverter"/>
+        <vsshell:ThemedImageSourceConverter x:Key="ImageSourceConverter" />
+
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
             <EventSetter Event="MouseRightButtonUp" Handler="OnItemMouseRightButtonUp" />
@@ -67,7 +70,7 @@
                                                                 <MultiTrigger>
                                                                     <MultiTrigger.Conditions>
                                                                         <Condition Property="UIElement.IsMouseOver" Value="True" />
-                                                                        <Condition Property="ToggleButton.IsChecked" Value="False" />
+                                                                        <Condition Property="ToggleButton.IsChecked" Value="True" />
                                                                     </MultiTrigger.Conditions>
                                                                     <Setter TargetName="ExpandPath" Property="Shape.Fill" Value="{DynamicResource {x:Static vsshell:TreeViewColors.GlyphMouseOverBrushKey}}" />
                                                                     <Setter TargetName="ExpandPath" Property="Shape.Stroke" Value="{DynamicResource {x:Static vsshell:TreeViewColors.GlyphMouseOverBrushKey}}" />
@@ -128,13 +131,33 @@
                 ItemsSource="{Binding Children}">
                 <Border Padding="2,2,2,2">
                     <StackPanel Orientation="Horizontal">
-                        <Image Name="image" Source="{Binding Image}" Height="16" Width="16" Margin="0,0,3,0" />
+                        <Image Name="image" Height="16" Width="16" Margin="0,0,3,0">
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                    <Binding Path="Image" />
+                                    <Binding Path="Background" 
+                                        RelativeSource="{RelativeSource AncestorType=TreeView}"
+                                        Converter="{StaticResource BrushToColorConverter}" />
+                                    <Binding Path="IsEnabled" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image>
                         <TextBlock Text="{Binding Text}" Foreground="{DynamicResource {x:Static vsshell:TreeViewColors.BackgroundTextBrushKey}}" />
                     </StackPanel>
                 </Border>
                 <HierarchicalDataTemplate.Triggers>
                     <DataTrigger Binding="{Binding IsExpanded}" Value="True">
-                        <Setter TargetName="image" Property="Source" Value="{Binding ExpandedImage}" />
+                        <Setter TargetName="image" Property="Source">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                    <Binding Path="ExpandedImage" />
+                                    <Binding Path="Background" 
+                                        RelativeSource="{RelativeSource AncestorType=TreeView}"
+                                        Converter="{StaticResource BrushToColorConverter}" />
+                                    <Binding Path="IsEnabled" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
                     </DataTrigger>
                 </HierarchicalDataTemplate.Triggers>
             </HierarchicalDataTemplate>
@@ -143,7 +166,17 @@
                 DataType="{x:Type explorerModels:NodeViewModel}">
                 <Border Padding="2,2,2,2">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Image}" Height="16" Width="16" Margin="0,0,3,0" />
+                        <Image Height="16" Width="16" Margin="0,0,3,0">
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource ImageSourceConverter}">
+                                    <Binding Path="Image" />
+                                    <Binding Path="Background" 
+                                        RelativeSource="{RelativeSource AncestorType=TreeView}"
+                                        Converter="{StaticResource BrushToColorConverter}" />
+                                    <Binding Path="IsEnabled" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image>
                         <TextBlock Text="{Binding Text}" Foreground="{DynamicResource {x:Static vsshell:TreeViewColors.BackgroundTextBrushKey}}" />
                     </StackPanel>
                 </Border>
