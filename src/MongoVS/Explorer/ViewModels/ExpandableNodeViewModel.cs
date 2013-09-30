@@ -9,10 +9,18 @@ using System.Windows.Media;
 
 namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public abstract class NodeViewModelWithChildren : NodeViewModel
+    public abstract class ExpandableNodeViewModel : NodeViewModel
     {
         private ObservableCollection<NodeViewModel> _children;
         private bool _isExpanded;
+
+        protected ExpandableNodeViewModel()
+            : this(null)
+        { }
+
+        protected ExpandableNodeViewModel(NodeViewModel parent)
+            : base(parent)
+        { }
 
         public IEnumerable<NodeViewModel> Children
         {

@@ -22,5 +22,11 @@ namespace MongoDB.VisualStudio.Explorer
             InitializeComponent();
             DataContext = viewModel;
         }
+
+        private void OnItemMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            MessageBox.Show(e.ClickCount.ToString());
+        }
     }
 }

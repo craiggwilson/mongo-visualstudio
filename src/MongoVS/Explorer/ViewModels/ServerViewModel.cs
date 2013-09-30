@@ -12,7 +12,7 @@ using MongoDB.Driver;
 
 namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public class ServerViewModel : NodeViewModelWithChildren
+    public class ServerViewModel : ExpandableNodeViewModel
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Server.png"));
 
@@ -35,14 +35,14 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             get { return _image; }
         }
 
-        public override string Name
+        public override string Text
         {
             get { return _address; }
         }
 
         protected override IEnumerable<NodeViewModel> LoadChildren()
         {
-            yield return new DatabasesViewModel(_client);
+            yield return new DatabasesViewModel(this, _client);
         }
     }
 }

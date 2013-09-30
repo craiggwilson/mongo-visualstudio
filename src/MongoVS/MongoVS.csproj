@@ -131,7 +131,7 @@
   <ItemGroup>
     <Compile Include="Explorer\ViewModels\CollectionsViewModel.cs" />
     <Compile Include="Explorer\ViewModels\DatabasesViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\NodeViewModelWithChildren.cs" />
+    <Compile Include="Explorer\ViewModels\ExpandableNodeViewModel.cs" />
     <Compile Include="ConnectionManager\AddConnectionDialog.xaml.cs">
       <DependentUpon>AddConnectionDialog.xaml</DependentUpon>
     </Compile>
@@ -155,6 +155,7 @@
     <Compile Include="MongoVSPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdIDList.cs" />
+    <Compile Include="Explorer\ThicknessIndentationValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -206,7 +207,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>

@@ -15,7 +15,8 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
 
         private readonly MongoCollection _collection;
 
-        public CollectionViewModel(MongoCollection collection)
+        public CollectionViewModel(CollectionsViewModel parent, MongoCollection collection)
+            : base(parent)
         {
             _collection = collection;
         }
@@ -25,7 +26,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             get { return _image; }
         }
 
-        public override string Name
+        public override string Text
         {
             get { return _collection.Name; }
         }

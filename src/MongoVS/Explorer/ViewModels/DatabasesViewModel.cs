@@ -12,14 +12,15 @@ using MongoDB.Driver;
 
 namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
-    public class DatabasesViewModel : NodeViewModelWithChildren
+    public class DatabasesViewModel : ExpandableNodeViewModel
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderClosed.png"));
         private static readonly ImageSource _expandedImage = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderOpen.png"));
 
         private readonly MongoClient _client;
 
-        public DatabasesViewModel(MongoClient client)
+        public DatabasesViewModel(ServerViewModel parent, MongoClient client)
+            : base(parent)
         {
             _client = client;
         }
@@ -34,7 +35,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             get { return _image; }
         }
 
-        public override string Name
+        public override string Text
         {
             get { return "Databases"; }
         }
@@ -45,7 +46,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             foreach (var dbName in server.GetDatabaseNames())
             {
                 var database = server.GetDatabase(dbName);
-                yield return new DatabaseViewModel(database);
+                yield return new DatabaseViewModel(this, database);
             }
         }
     }

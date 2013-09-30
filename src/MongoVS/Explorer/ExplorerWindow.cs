@@ -64,14 +64,17 @@ namespace MongoDB.VisualStudio.Explorer
 
         private void AddConnection(object sender, EventArgs e)
         {
-            var model = new AddConnectionViewModel();
-            var dialog = new AddConnectionDialog(model);
-            var result = dialog.ShowDialog();
-            if (result.HasValue && result.Value)
-            {
-                var serverModel = new ServerViewModel(model.ServerAddress);
-                _clusterTreeViewModel.Children.Add(serverModel);
-            }
+            var serverModel = new ServerViewModel("localhost");
+            _clusterTreeViewModel.Children.Add(serverModel);
+
+            //var model = new AddConnectionViewModel();
+            //var dialog = new AddConnectionDialog(model);
+            //var result = dialog.ShowDialog();
+            //if (result.HasValue && result.Value)
+            //{
+            //    var serverModel = new ServerViewModel(model.ServerAddress);
+            //    _clusterTreeViewModel.Children.Add(serverModel);
+            //}
         }
     }
 }
