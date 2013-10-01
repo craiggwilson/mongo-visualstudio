@@ -24,6 +24,20 @@ namespace MongoDB.VisualStudio.Explorer
             DataContext = viewModel;
         }
 
+        private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Left)
+                return;
+
+            var treeViewItem = (TreeViewItem)sender;
+            var handlesDoubleClick = treeViewItem.DataContext as IHandlesLefMouseButtonDoubleClick;
+            if (handlesDoubleClick == null)
+                return;
+
+            e.Handled = true;
+            handlesDoubleClick.LefMouseButtonDoubleClickCommand.Execute(e);
+        }
+
         private void OnItemMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;

@@ -142,6 +142,7 @@
     <Compile Include="Explorer\ViewModels\ExplorerTreeViewModel.cs" />
     <Compile Include="Explorer\ViewModels\CollectionViewModel.cs" />
     <Compile Include="Explorer\ViewModels\DatabaseViewModel.cs" />
+    <Compile Include="Explorer\ViewModels\IHandlesDoubleClick.cs" />
     <Compile Include="Explorer\ViewModels\NodeViewModel.cs" />
     <Compile Include="Explorer\ViewModels\ServerViewModel.cs" />
     <Compile Include="Explorer\ExplorerWindow.cs" />

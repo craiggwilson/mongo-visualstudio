@@ -15,6 +15,7 @@
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
             <EventSetter Event="MouseRightButtonUp" Handler="OnItemMouseRightButtonUp" />
+            <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TreeViewItem">
