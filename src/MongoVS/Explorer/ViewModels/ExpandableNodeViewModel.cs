@@ -15,10 +15,6 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
         private bool _isExpanded;
         private bool _isLoaded;
 
-        protected ExpandableNodeViewModel()
-            : this(null)
-        { }
-
         protected ExpandableNodeViewModel(NodeViewModel parent)
             : base(parent)
         {
@@ -61,9 +57,17 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
                     OnPropertyChanged("IsExpanded");
                 }
 
-                if (_isExpanded && !_isLoaded)
+                if (_isExpanded)
                 {
-                    Children = LoadChildren();
+                    if (Parent != null)
+                    {
+                        ((ExpandableNodeViewModel)Parent).IsExpanded = true;
+                    }
+                    if (!_isLoaded)
+                    {
+                        Children = LoadChildren();
+                        _isLoaded = true;
+                    }
                 }
             }
         }
@@ -78,6 +82,10 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
 
         private class DummyViewModel : NodeViewModel
         {
+            public DummyViewModel()
+                : base(null)
+            { }
+
             public override System.Windows.Media.ImageSource Image
             {
                 get { throw new NotImplementedException(); }

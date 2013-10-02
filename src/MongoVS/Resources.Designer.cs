@@ -72,9 +72,9 @@ namespace MongoDB.VisualStudio {
         /// <summary>
         ///   Looks up a localized string similar to MongoDB Explorer.
         /// </summary>
-        internal static string ToolWindowTitle {
+        internal static string ExplorerWindowTitle {
             get {
-                return ResourceManager.GetString("ToolWindowTitle", resourceCulture);
+                return ResourceManager.GetString("ExplorerWindowTitle", resourceCulture);
             }
         }
     }

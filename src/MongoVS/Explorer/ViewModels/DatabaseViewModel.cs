@@ -5,9 +5,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell.Interop;
 using MongoDB.Driver;
+using MongoDB.VisualStudio.Editors.Database;
+using MongoDB.VisualStudio.Utilities;
 
 namespace MongoDB.VisualStudio.Explorer.ViewModels
 {
@@ -21,6 +27,16 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             : base(parent)
         {
             _database = database;
+        }
+
+        public ICommand ActivatedCommand
+        {
+            get { return MongoVSCommands.ViewDatabase; }
+        }
+
+        public object ActivatedCommandParameter
+        {
+            get { return _database; }
         }
 
         public override ImageSource ExpandedImage

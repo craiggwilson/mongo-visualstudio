@@ -14,10 +14,6 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
         private readonly int _depth;
         private readonly NodeViewModel _parent;
 
-        protected NodeViewModel()
-            : this(null)
-        { }
-
         protected NodeViewModel(NodeViewModel parent)
         {
             _parent = parent;

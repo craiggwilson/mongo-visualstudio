@@ -12,6 +12,7 @@ using MongoDB.Driver;
 using MongoDB.VisualStudio.Explorer.ViewModels;
 using MongoDB.VisualStudio.ConnectionManager.ViewModels;
 using MongoDB.VisualStudio.ConnectionManager;
+using System.Windows.Input;
 
 namespace MongoDB.VisualStudio.Explorer
 {
@@ -36,7 +37,7 @@ namespace MongoDB.VisualStudio.Explorer
             : base(null)
         {
             // Set the window title reading it from the resources.
-            this.Caption = Resources.ToolWindowTitle;
+            this.Caption = Resources.ExplorerWindowTitle;
             // Set the image that will appear on the tab of the window frame
             // when docked with an other window
             // The resource ID correspond to the one defined in the resx file
@@ -49,7 +50,7 @@ namespace MongoDB.VisualStudio.Explorer
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
             _clusterTreeViewModel = new ExplorerTreeViewModel();
-            base.Content = new ExplorerTree(_clusterTreeViewModel);
+            base.Content = new ExplorerTree(this, _clusterTreeViewModel);
             this.ToolBar = new CommandID(GuidList.guidMongoVSCmdSet, (int)PkgCmdIDList.tbExplorer);
 
             // Add our command handlers for menu (commands must exist in the .vsct file)

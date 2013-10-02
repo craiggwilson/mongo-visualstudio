@@ -20,6 +20,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
         private readonly MongoClient _client;
 
         public ServerViewModel(string address)
+            : base(null)
         {
             _address = address;
             _client = new MongoClient("mongodb://" + address);

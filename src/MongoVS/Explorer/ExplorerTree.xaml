@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvs="clr-namespace:MongoDB.VisualStudio"
+             xmlns:mvsControls="clr-namespace:MongoDB.VisualStudio.Controls"
              xmlns:explorer="clr-namespace:MongoDB.VisualStudio.Explorer"
              xmlns:explorerModels="clr-namespace:MongoDB.VisualStudio.Explorer.ViewModels"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
@@ -12,13 +14,14 @@
         <vsshell:BrushToColorConverter x:Key="BrushToColorConverter"/>
         <vsshell:ThemedImageSourceConverter x:Key="ImageSourceConverter" />
 
-        <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+        <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="mvsControls:CommandTreeViewItem">
             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="Command" Value="{Binding ActivatedCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding ActivatedCommandParameter}" />
             <EventSetter Event="MouseRightButtonUp" Handler="OnItemMouseRightButtonUp" />
-            <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="TreeViewItem">
+                    <ControlTemplate TargetType="mvsControls:CommandTreeViewItem">
                         <StackPanel>
                             <Border x:Name="Bd"
                                 HorizontalAlignment="Stretch"
@@ -123,10 +126,10 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <TreeView ItemsSource="{Binding Children}" 
+    <mvsControls:CommandTreeView ItemsSource="{Binding Children}" 
               Background="{DynamicResource {x:Static vsshell:TreeViewColors.BackgroundBrushKey}}" 
               BorderThickness="0,0,0,0">
-        <TreeView.Resources>
+        <mvsControls:CommandTreeView.Resources>
             <HierarchicalDataTemplate 
                 DataType="{x:Type explorerModels:ExpandableNodeViewModel}" 
                 ItemsSource="{Binding Children}">
@@ -182,6 +185,6 @@
                     </StackPanel>
                 </Border>
             </DataTemplate>
-        </TreeView.Resources>
-    </TreeView>
+        </mvsControls:CommandTreeView.Resources>
+    </mvsControls:CommandTreeView>
 </UserControl>
