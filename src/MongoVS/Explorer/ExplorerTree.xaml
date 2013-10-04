@@ -5,7 +5,7 @@
              xmlns:mvs="clr-namespace:MongoDB.VisualStudio"
              xmlns:mvsControls="clr-namespace:MongoDB.VisualStudio.Controls"
              xmlns:explorer="clr-namespace:MongoDB.VisualStudio.Explorer"
-             xmlns:explorerModels="clr-namespace:MongoDB.VisualStudio.Explorer.ViewModels"
+             xmlns:nodes="clr-namespace:MongoDB.VisualStudio.Explorer.Nodes"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.11.0"
              Background="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
              Foreground="{DynamicResource {x:Static vsshell:EnvironmentColors.ToolWindowTextBrushKey}}">
@@ -131,7 +131,7 @@
               BorderThickness="0,0,0,0">
         <mvsControls:CommandTreeView.Resources>
             <HierarchicalDataTemplate 
-                DataType="{x:Type explorerModels:ExpandableNodeViewModel}" 
+                DataType="{x:Type nodes:ExpandableExplorerNodeBase}" 
                 ItemsSource="{Binding Children}">
                 <Border Padding="2,2,2,2">
                     <StackPanel Orientation="Horizontal">
@@ -167,7 +167,7 @@
             </HierarchicalDataTemplate>
 
             <DataTemplate 
-                DataType="{x:Type explorerModels:NodeViewModel}">
+                DataType="{x:Type nodes:ExplorerNodeBase}">
                 <Border Padding="2,2,2,2">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="16" Width="16" Margin="0,0,3,0">

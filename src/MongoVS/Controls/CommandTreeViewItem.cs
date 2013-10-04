@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace MongoDB.VisualStudio.Controls
 {
@@ -130,11 +131,11 @@ namespace MongoDB.VisualStudio.Controls
             var routedCommand = Command as RoutedCommand;
             if (routedCommand != null)
             {
-                routedCommand.Execute(CommandParameter, CommandTarget);
+                Application.Current.Dispatcher.Invoke(() => routedCommand.Execute(CommandParameter, CommandTarget));
             }
             else
             {
-                Command.Execute(CommandParameter);
+                Application.Current.Dispatcher.Invoke(() => Command.Execute(CommandParameter));
             }
             return true;
         }

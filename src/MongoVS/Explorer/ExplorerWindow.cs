@@ -9,10 +9,10 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 using System.ComponentModel.Design;
 using MongoDB.Driver;
-using MongoDB.VisualStudio.Explorer.ViewModels;
 using MongoDB.VisualStudio.ConnectionManager.ViewModels;
 using MongoDB.VisualStudio.ConnectionManager;
 using System.Windows.Input;
+using System.ComponentModel.Composition;
 
 namespace MongoDB.VisualStudio.Explorer
 {
@@ -30,28 +30,27 @@ namespace MongoDB.VisualStudio.Explorer
     {
         private ExplorerTreeViewModel _clusterTreeViewModel;
 
+        [Import]
+        public IRootExplorerNodeFactory RootExplorerNodeFactory { get; set; }
+
+        [Import]
+        public IWindowManager WindowManager { get; set; }
+
         /// <summary>
         /// Standard constructor for the tool window.
         /// </summary>
-        public ExplorerWindow() 
+        public ExplorerWindow()
             : base(null)
         {
-            // Set the window title reading it from the resources.
-            this.Caption = Resources.ExplorerWindowTitle;
-            // Set the image that will appear on the tab of the window frame
-            // when docked with an other window
-            // The resource ID correspond to the one defined in the resx file
-            // while the Index is the offset in the bitmap strip. Each image in
-            // the strip being 16x16.
+            this.Caption = "MongoDB Explorer";
+
             this.BitmapResourceID = 301;
             this.BitmapIndex = 1;
-
-            // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
-            // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
-            // the object returned by the Content property.
-            _clusterTreeViewModel = new ExplorerTreeViewModel();
-            base.Content = new ExplorerTree(this, _clusterTreeViewModel);
+            base.Content = new ExplorerTree();
             this.ToolBar = new CommandID(GuidList.guidMongoVSCmdSet, (int)PkgCmdIDList.tbExplorer);
+
+            _clusterTreeViewModel = new ExplorerTreeViewModel();
+            ((ExplorerTree)base.Content).ViewModel = _clusterTreeViewModel;
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
             var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -63,10 +62,17 @@ namespace MongoDB.VisualStudio.Explorer
             }
         }
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+            ((MongoVSPackage)Package).CompositionService.SatisfyImportsOnce(this);
+            ((ExplorerTree)base.Content).WindowManager = WindowManager;
+        }
+
         private void AddConnection(object sender, EventArgs e)
         {
-            var serverModel = new ServerViewModel("localhost");
-            _clusterTreeViewModel.Children.Add(serverModel);
+            var rootNode = RootExplorerNodeFactory.CreateRootNode("temp", new[] { "localhost" });
+            _clusterTreeViewModel.Children.Add(rootNode);
 
             //var model = new AddConnectionViewModel();
             //var dialog = new AddConnectionDialog(model);

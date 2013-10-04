@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="b813cef7-289c-4101-90c9-aa22b53faf8b" Version="1.0" Language="en-US" Publisher="MongoDB" />
     <DisplayName>MongoVS</DisplayName>
-    <Description>Explorer for MongoDB.</Description>
+    <Description xml:space="preserve">MongoDB Tools for Visual Studio.</Description>
   </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="11.0" />
@@ -14,5 +14,6 @@
   </Dependencies>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
   </Assets>
 </PackageManifest>

@@ -4,30 +4,27 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public abstract class NodeViewModel : INotifyPropertyChanged
+    public abstract class ExplorerNodeBase : IExplorerNode, INotifyPropertyChanged
     {
-        private readonly int _depth;
-        private readonly NodeViewModel _parent;
+        private IExplorerNode _parent;
 
-        protected NodeViewModel(NodeViewModel parent)
+        protected ExplorerNodeBase(IExplorerNode parent)
         {
             _parent = parent;
-            _depth = _parent == null ? 0 : _parent.Depth + 1;
         }
 
         public int Depth
         {
-            get { return _depth; }
+            get { return Parent == null ? 0 : ((ExplorerNodeBase)Parent).Depth + 1; }
         }
 
         public abstract ImageSource Image { get; }
 
-        public NodeViewModel Parent
+        public IExplorerNode Parent 
         {
             get { return _parent; }
         }
@@ -36,7 +33,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {

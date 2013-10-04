@@ -7,15 +7,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public class CollectionViewModel : NodeViewModel
+    public class CollectionNode : ExplorerNodeBase
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Collection.png"));
 
         private readonly MongoCollection _collection;
 
-        public CollectionViewModel(CollectionsViewModel parent, MongoCollection collection)
+        public CollectionNode(IExplorerNode parent, MongoCollection collection)
             : base(parent)
         {
             _collection = collection;

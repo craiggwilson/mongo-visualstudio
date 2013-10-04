@@ -1,30 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public abstract class ExpandableNodeViewModel : NodeViewModel
+    public abstract class ExpandableExplorerNodeBase : ExplorerNodeBase
     {
-        private ObservableCollection<NodeViewModel> _children;
+        private ObservableCollection<IExplorerNode> _children;
         private bool _isExpanded;
         private bool _isLoaded;
 
-        protected ExpandableNodeViewModel(NodeViewModel parent)
+        protected ExpandableExplorerNodeBase()
+            : this(null)
+        { }
+
+        protected ExpandableExplorerNodeBase(IExplorerNode parent)
             : base(parent)
         {
-            _children = new ObservableCollection<NodeViewModel>
+            _children = new ObservableCollection<IExplorerNode>
             {
-                new DummyViewModel()
+                new DummyNode()
             };
         }
 
-        public IEnumerable<NodeViewModel> Children
+        public IEnumerable<IExplorerNode> Children
         {
             get { return _children; }
             set
@@ -37,7 +42,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
                     }
                     else
                     {
-                        _children = new ObservableCollection<NodeViewModel>(value);
+                        _children = new ObservableCollection<IExplorerNode>(value);
                     }
                     OnPropertyChanged("Children");
                 }
@@ -45,6 +50,9 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
         }
 
         public abstract ImageSource ExpandedImage { get; }
+
+        [ImportMany]
+        public IEnumerable<IExplorerNodeFactory> NodeFactories { get; set; }
 
         public bool IsExpanded
         {
@@ -61,7 +69,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
                 {
                     if (Parent != null)
                     {
-                        ((ExpandableNodeViewModel)Parent).IsExpanded = true;
+                        ((ExpandableExplorerNodeBase)Parent).IsExpanded = true;
                     }
                     if (!_isLoaded)
                     {
@@ -72,17 +80,14 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             }
         }
 
-        protected abstract IEnumerable<NodeViewModel> LoadChildren();
-
-        protected void ReloadChildren()
+        protected IEnumerable<IExplorerNode> LoadChildren()
         {
-            _isLoaded = false;
-            IsExpanded = true;
+            return NodeFactories.SelectMany(x => x.CreateChildren(this));
         }
 
-        private class DummyViewModel : NodeViewModel
+        private class DummyNode : ExplorerNodeBase
         {
-            public DummyViewModel()
+            public DummyNode()
                 : base(null)
             { }
 

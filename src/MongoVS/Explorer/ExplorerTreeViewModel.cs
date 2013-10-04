@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer
 {
     public class ExplorerTreeViewModel
     {
         public ExplorerTreeViewModel()
         {
-            Children = new ObservableCollection<NodeViewModel>();
+            Children = new ObservableCollection<IRootExplorerNode>();
         }
 
-        public ObservableCollection<NodeViewModel> Children { get; private set; }
+        public ObservableCollection<IRootExplorerNode> Children { get; private set; }
     }
 }

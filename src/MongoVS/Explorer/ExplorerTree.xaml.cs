@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -17,35 +20,29 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using MongoDB.Driver;
 using MongoDB.VisualStudio.Editors.Database;
-using MongoDB.VisualStudio.Explorer.ViewModels;
 
 namespace MongoDB.VisualStudio.Explorer
 {
     public partial class ExplorerTree : UserControl
     {
-        private readonly ExplorerWindow _window;
-
-        public ExplorerTree(ExplorerWindow window, ExplorerTreeViewModel viewModel)
+        public ExplorerTree()
         {
             InitializeComponent();
-            DataContext = viewModel;
 
-            CommandBindings.Add(new CommandBinding(MongoVSCommands.ViewDatabase, ViewDatabase));
-
-            _window = window;
+            CommandBindings.Add(new CommandBinding(MongoVSCommands.ViewDatabase, OnViewDatabase));
         }
 
-        private void ViewDatabase(object sender, ExecutedRoutedEventArgs e)
+        public IWindowManager WindowManager { get; set; }
+
+        public ExplorerTreeViewModel ViewModel
         {
-            var package = (Package)_window.Package;
-            var window = (DatabaseEditorWindow)package.FindToolWindow(typeof(DatabaseEditorWindow), 0, true);
-            if (window == null || window.Frame == null)
-            {
-                throw new NotSupportedException("oops");
-            }
-            window.Database = (MongoDatabase)e.Parameter;
-            var windowFrame = (IVsWindowFrame)window.Frame;
-            ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            get { return (ExplorerTreeViewModel)DataContext; }
+            set { DataContext = value; }
+        }
+
+        private void OnViewDatabase(object sender, ExecutedRoutedEventArgs e)
+        {
+            WindowManager.CreateToolWindow<DatabaseEditorWindow>().Show();
         }
 
         private void OnItemMouseRightButtonUp(object sender, MouseButtonEventArgs e)

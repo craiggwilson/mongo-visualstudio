@@ -42,6 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.ComponentModelHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.ComponentModelHost.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
@@ -61,6 +65,7 @@
       <HintPath>..\..\packages\mongocsharpdriver.1.8.2\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -138,10 +143,32 @@
       <DependentUpon>DatabaseEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Editors\Database\DatabaseEditorWindow.cs" />
+    <Compile Include="Explorer\ComposingExplorerNodeFactory.cs" />
+    <Compile Include="Explorer\ExplorerNodeFactoryAttribute.cs" />
+    <Compile Include="Explorer\Nodes\CollectionsNodeFactory.cs" />
+    <Compile Include="Explorer\Nodes\CollectionNodeFactory.cs" />
+    <Compile Include="Explorer\Nodes\DatabaseNodeFactory.cs" />
+    <Compile Include="Explorer\Nodes\DatabasesNodeFactory.cs" />
+    <Compile Include="Explorer\RootExplorerNodeFactory.cs" />
+    <Compile Include="Explorer\IExplorerNode.cs" />
+    <Compile Include="Explorer\IExplorerNodeFactory.cs" />
+    <Compile Include="Explorer\IRootExplorerNodeFactory.cs" />
+    <Compile Include="Explorer\IExplorerNodeMetadata.cs" />
+    <Compile Include="Explorer\IRootExplorerNode.cs" />
+    <Compile Include="Explorer\Nodes\ClientNode.cs" />
+    <Compile Include="Explorer\Nodes\DatabasesNode.cs" />
+    <Compile Include="Explorer\Nodes\DatabaseNode.cs" />
+    <Compile Include="Explorer\Nodes\ExpandableExplorerNodeBase.cs" />
+    <Compile Include="Explorer\Nodes\ExplorerNodeBase.cs" />
+    <Compile Include="Explorer\Nodes\DirectServerNode.cs" />
+    <Compile Include="Explorer\Nodes\DirectServerNodeFactory.cs" />
+    <Compile Include="Explorer\TypedParentExplorerNodeFactory.cs" />
+    <Compile Include="Extensions\Microsoft\VisualStudio\Shell\ToolWindowPaneExtensions.cs" />
+    <Compile Include="IMessageBroker.cs" />
+    <Compile Include="IWindowManager.cs" />
+    <Compile Include="MessageBroker.cs" />
     <Compile Include="MongoVSCommands.cs" />
-    <Compile Include="Explorer\ViewModels\CollectionsViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\DatabasesViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\ExpandableNodeViewModel.cs" />
+    <Compile Include="Explorer\Nodes\CollectionsNode.cs" />
     <Compile Include="ConnectionManager\AddConnectionDialog.xaml.cs">
       <DependentUpon>AddConnectionDialog.xaml</DependentUpon>
     </Compile>
@@ -149,11 +176,8 @@
     <Compile Include="Explorer\ExplorerTree.xaml.cs">
       <DependentUpon>ExplorerTree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Explorer\ViewModels\ExplorerTreeViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\CollectionViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\DatabaseViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\NodeViewModel.cs" />
-    <Compile Include="Explorer\ViewModels\ServerViewModel.cs" />
+    <Compile Include="Explorer\ExplorerTreeViewModel.cs" />
+    <Compile Include="Explorer\Nodes\CollectionNode.cs" />
     <Compile Include="Explorer\ExplorerWindow.cs" />
     <Compile Include="GuidList.cs" />
     <Compile Include="Resources.Designer.cs">

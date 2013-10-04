@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.ComponentModel.Composition;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell;
 using MongoDB.Driver;
 using MongoDB.VisualStudio.Editors.Database;
 using MongoDB.VisualStudio.Utilities;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public class DatabaseViewModel : ExpandableNodeViewModel
+    public class DatabaseNode : ExpandableExplorerNodeBase
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Database.png"));
 
+        private readonly ICommand _activatedCommand;
         private readonly MongoDatabase _database;
 
-        public DatabaseViewModel(DatabasesViewModel parent, MongoDatabase database)
+        [Import]
+        private IWindowManager _windowManager;
+
+        public DatabaseNode(IExplorerNode parent, MongoDatabase database)
             : base(parent)
         {
             _database = database;
+            _activatedCommand = new RelayCommand(_ => OpenDatabase());
         }
 
         public ICommand ActivatedCommand
@@ -34,7 +32,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             get { return MongoVSCommands.ViewDatabase; }
         }
 
-        public object ActivatedCommandParameter
+        public MongoDatabase Database
         {
             get { return _database; }
         }
@@ -54,9 +52,9 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
             get { return _database.Name; }
         }
 
-        protected override IEnumerable<NodeViewModel> LoadChildren()
+        private void OpenDatabase()
         {
-            yield return new CollectionsViewModel(this, _database);
+            _windowManager.CreateToolWindow<DatabaseEditorWindow>().Show();
         }
     }
 }

@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public class ServerViewModel : ExpandableNodeViewModel
+    [Export(typeof(IRootExplorerNode))]
+    public class DirectServerNode : ExpandableExplorerNodeBase
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/Server.png"));
 
-        private readonly string _address;
-        private readonly MongoClient _client;
+        private MongoClient _client;
+        private string _text;
 
-        public ServerViewModel(string address)
-            : base(null)
+        public DirectServerNode(IExplorerNode parent, MongoClient client)
+            : base(parent)
         {
-            _address = address;
-            _client = new MongoClient("mongodb://" + address);
+            _client = client;
+            _text = client.Settings.Servers.Single().ToString();
+        }
+
+        public MongoClient Client
+        {
+            get { return _client; }
         }
 
         public override ImageSource ExpandedImage
@@ -38,12 +42,7 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
 
         public override string Text
         {
-            get { return _address; }
-        }
-
-        protected override IEnumerable<NodeViewModel> LoadChildren()
-        {
-            yield return new DatabasesViewModel(this, _client);
+            get { return _text; }
         }
     }
 }

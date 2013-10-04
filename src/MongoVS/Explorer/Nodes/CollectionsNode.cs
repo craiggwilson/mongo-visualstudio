@@ -9,19 +9,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MongoDB.Driver;
 
-namespace MongoDB.VisualStudio.Explorer.ViewModels
+namespace MongoDB.VisualStudio.Explorer.Nodes
 {
-    public class CollectionsViewModel : ExpandableNodeViewModel
+    public class CollectionsNode : ExpandableExplorerNodeBase
     {
         private static readonly ImageSource _image = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderClosed.png"));
         private static readonly ImageSource _expandedImage = new BitmapImage(new Uri("pack://application:,,,/MongoVS;component/Resources/Images/FolderOpen.png"));
 
         private readonly MongoDatabase _database;
 
-        public CollectionsViewModel(DatabaseViewModel parent, MongoDatabase database)
+        public CollectionsNode(IExplorerNode parent, MongoDatabase database)
             : base(parent)
         {
             _database = database;
+        }
+
+        public MongoDatabase Database
+        {
+            get { return _database; }
         }
 
         public override ImageSource ExpandedImage
@@ -37,15 +42,6 @@ namespace MongoDB.VisualStudio.Explorer.ViewModels
         public override string Text
         {
             get { return "Collections"; }
-        }
-
-        protected override IEnumerable<NodeViewModel> LoadChildren()
-        {
-            foreach (var collectionName in _database.GetCollectionNames())
-            {
-                var collection = _database.GetCollection(collectionName);
-                yield return new CollectionViewModel(this, collection);
-            }
         }
     }
 }
